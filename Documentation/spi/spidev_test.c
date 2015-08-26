@@ -57,9 +57,29 @@ static void transfer(int fd)
 		.bits_per_word = bits,
 	};
 
+	/***** Ricky: Add to debug spidev *****/
+	printf("Sent:\n");
+	for (ret = 0; ret < ARRAY_SIZE(tx); ret++) {
+		if (!(ret % 6))
+			puts("");
+		printf("%.2X ", tx[ret]);
+	}
+	    printf("\n");
+
+	    printf("Expected:\n");
+		for (ret = 0; ret < ARRAY_SIZE(tx); ret++) {
+			if (!(ret % 6))
+				puts("");
+			printf("%.2X ", ~tx[ret] & 0xff);
+		}
+    	printf("\n");
+    	/***** Ricky" End *****/
+
 	ret = ioctl(fd, SPI_IOC_MESSAGE(1), &tr);
 	if (ret < 1)
 		pabort("can't send spi message");
+
+	printf("Received:\n"); // Ricky: Add to debug spidev
 
 	for (ret = 0; ret < ARRAY_SIZE(tx); ret++) {
 		if (!(ret % 6))
