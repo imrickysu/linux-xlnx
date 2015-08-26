@@ -23,7 +23,6 @@
 		i2c0 = &ps7_i2c_0;
 		serial0 = &ps7_uart_1;
 		spi0 = &ps7_qspi_0;
-                spi1 = &ps7_spi_0;
 	} ;
 	chosen {
 		bootargs = "console=ttyPS0,115200 root=/dev/ram rw earlyprintk";
@@ -297,6 +296,8 @@
 			speed-hz = <166666672>;
 			bus-num = <0>;
 			num-chip-select = <3>;
+			clocks = <&clkc 25>, <&clkc 34>;
+			clock-names = "ref_clk", "aper_clk";
 			#address-cells = <1>;
 			#size-cells = <0>;
 			spiblah {
