@@ -290,15 +290,26 @@
 			reg = <0xfc000000 0x2000000>;
 		} ;
 		ps7_spi_0: spi@e0006000 {
-			compatible = "xlnx,zynq-spi-r1p6";
+			compatible = "xlnx,ps7-spi-1.00.a";
 			reg = <0xe0006000 0x1000>;
-			status = "okay";
 			interrupt-parent = <&ps7_scugic_0>;
 			interrupts = <0 26 4>;
-			clocks = <&clkc 25>, <&clkc 34>;
-			clock-names = "ref_clk", "pclk";
+			speed-hz = <166666672>;
+			bus-num = <0>;
+			num-chip-select = <3>;
 			#address-cells = <1>;
 			#size-cells = <0>;
+			spiblah {
+				compatible = "spidev";
+				reg = <0>;  /* CS */
+				spi-max-frequency = <10000000>;
+				/*spi-cpha; Possible property */
+				/*spi-cpol; Possible property */
+				/*spi-cs-high; Possible property */
+				/*spi-3wire; Possible property */
+				/*no interrupts */
+			};
+
 		};
 		ps7_ram_0: ps7-ram@0 {
 			compatible = "xlnx,ps7-ram-1.00.a", "xlnx,ps7-ocm";
