@@ -23,6 +23,7 @@
 		i2c0 = &ps7_i2c_0;
 		serial0 = &ps7_uart_1;
 		spi0 = &ps7_qspi_0;
+                spi1 = &ps7_spi_0;
 	} ;
 	chosen {
 		bootargs = "console=ttyPS0,115200 root=/dev/ram rw earlyprintk";
@@ -288,6 +289,17 @@
 			compatible = "xlnx,ps7-qspi-linear-1.00.a";
 			reg = <0xfc000000 0x2000000>;
 		} ;
+		ps7_spi_0: spi@e0006000 {
+			compatible = "xlnx,zynq-spi-r1p6";
+			reg = <0xe0006000 0x1000>;
+			status = "okay";
+			interrupt-parent = <&ps7_scugic_0>;
+			interrupts = <0 26 4>;
+			clocks = <&clkc 25>, <&clkc 34>;
+			clock-names = "ref_clk", "pclk";
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
 		ps7_ram_0: ps7-ram@0 {
 			compatible = "xlnx,ps7-ram-1.00.a", "xlnx,ps7-ocm";
 			interrupt-parent = <&ps7_scugic_0>;
